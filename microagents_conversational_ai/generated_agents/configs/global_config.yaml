@@ -1,0 +1,82 @@
+# Global Configuration for Microagent Ecosystem
+# This file contains default settings that apply to all agents unless overridden
+
+# Logging Configuration
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  handlers:
+    - console
+    - file
+  file_path: "logs/microagents.log"
+  max_file_size: 10485760  # 10MB
+  backup_count: 5
+
+# Execution Settings
+execution:
+  default_timeout: 30
+  max_retries: 3
+  retry_backoff_factor: 2
+  max_backoff_time: 60
+  enable_circuit_breaker: true
+  circuit_breaker_threshold: 5
+  circuit_breaker_timeout: 300
+
+# Monitoring and Observability
+monitoring:
+  enable_metrics: true
+  metrics_export_interval: 60
+  health_check_interval: 30
+  enable_distributed_tracing: false
+  jaeger_endpoint: "http://localhost:14268/api/traces"
+
+# Security Settings
+security:
+  enable_input_validation: true
+  enable_output_sanitization: true
+  max_input_size: 10485760  # 10MB
+  allowed_file_types:
+    - .txt
+    - .json
+    - .csv
+    - .xml
+    - .yaml
+  enable_rate_limiting: true
+  requests_per_minute: 100
+
+# Performance Optimization
+performance:
+  enable_caching: true
+  cache_ttl: 3600  # 1 hour
+  max_cache_size: 1000
+  enable_async: true
+  max_concurrent_executions: 10
+  memory_limit: 1073741824  # 1GB
+
+# Database Configuration (if needed)
+database:
+  url: "postgresql://localhost:5432/microagents"
+  pool_size: 10
+  max_overflow: 20
+  pool_timeout: 30
+
+# Redis Configuration (for caching)
+redis:
+  url: "redis://localhost:6379/0"
+  max_connections: 10
+  socket_timeout: 5
+
+# HTTP Client Settings
+http:
+  timeout: 30
+  max_retries: 3
+  backoff_factor: 0.3
+  user_agent: "MicroAgent/1.0"
+  verify_ssl: true
+
+# Development Settings
+development:
+  debug_mode: false
+  enable_hot_reload: false
+  profiling_enabled: false
+  verbose_logging: false

@@ -1,0 +1,41 @@
+# Microagent Conversational AI System - Complete Requirements
+# Hardware Middleware Dependencies
+pyudev>=0.24.0          # Linux device discovery (USB, system devices)  
+psutil>=5.9.0           # System and process utilities
+pyserial>=3.5           # Serial port communication
+sounddevice>=0.4.6      # Audio device interface
+opencv-python>=4.8.0    # Computer vision and camera support
+
+# Web Automation and Data Extraction
+playwright>=1.40.0      # Browser automation
+scrapy>=2.11.0         # Web scraping framework
+beautifulsoup4>=4.12.0  # HTML parsing
+lxml>=4.9.0            # XML/HTML processing
+requests>=2.31.0        # HTTP requests
+httpx>=0.25.0          # Async HTTP client
+aiohttp>=3.9.0         # Async web framework
+
+# AI and Machine Learning
+onnxruntime>=1.16.0    # ONNX model runtime
+numpy>=1.24.0          # Numerical computing
+pillow>=10.0.0         # Image processing
+
+# Container and Orchestration  
+kubernetes>=28.1.0     # Kubernetes API client
+docker>=6.1.0          # Docker Python SDK
+
+# GraphQL and API Tools
+gql[aiohttp]>=3.4.0    # GraphQL client with async support
+
+# Development and Testing
+pytest>=7.4.0          # Testing framework
+pytest-asyncio>=0.21.0 # Async testing support
+python-dotenv>=1.0.0   # Environment variables
+pydantic>=2.5.0        # Data validation
+rich>=13.7.0           # Console output formatting
+
+# Optional Advanced Hardware Support
+# evdev>=1.6.0          # Input device access (Linux only - uncomment if needed)
+# RPi.GPIO              # Raspberry Pi GPIO (RPi only - uncomment if needed)
+
+# Note: Diffbot is a paid API service - use httpx for HTTP requests to Diffbot API

@@ -1,0 +1,36 @@
+# Core dependencies for the tools system
+aiohttp>=3.8.0
+aiofiles>=23.0.0
+requests>=2.28.0
+
+# Data processing dependencies
+pandas>=1.5.0
+numpy>=1.24.0
+
+# Security dependencies
+cryptography>=3.4.8
+PyJWT>=2.6.0
+
+# System monitoring dependencies
+psutil>=5.9.0
+
+# Optional dependencies for enhanced functionality
+beautifulsoup4>=4.11.0  # For web scraping
+lxml>=4.9.0  # XML parsing for sitemaps
+PyYAML>=6.0  # YAML configuration support
+schedule>=1.2.0  # Task scheduling (optional, has fallback)
+
+# Development and testing dependencies (optional)
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+black>=22.0.0
+flake8>=5.0.0
+
+# API client dependencies (optional, for specific integrations)
+openai>=1.0.0  # For OpenAI API tool
+tavily-python>=0.3.0  # For Tavily search (if available)
+
+# Database dependencies (for future extensions)
+# sqlite3 is built-in to Python
+# For PostgreSQL: psycopg2-binary>=2.9.0
+# For MySQL: PyMySQL>=1.0.0

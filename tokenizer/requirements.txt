@@ -1,0 +1,44 @@
+# Core dependencies
+asyncio
+logging
+typing
+dataclasses
+pathlib
+datetime
+json
+base64
+io
+
+# Web Automation Agent - Playwright + AX Tree
+playwright>=1.40.0
+asyncio
+
+# Data Extraction Agent - Scrapy + Diffbot  
+scrapy>=2.11.0
+aiohttp>=3.9.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Computer Vision Agent - OpenCV + ONNX Runtime
+opencv-python>=4.8.0
+onnxruntime>=1.16.0
+numpy>=1.24.0
+pillow>=10.0.0
+
+# System Resource Governance Agent - psutil + K8s API
+psutil>=5.9.0
+kubernetes>=28.1.0
+
+# API Orchestration Agent - httpx + GraphQL
+httpx>=0.25.0
+gql[aiohttp]>=3.4.0
+aiohttp>=3.9.0
+
+# Optional dependencies for enhanced functionality
+python-dotenv>=1.0.0  # Environment variables
+pydantic>=2.5.0       # Data validation
+rich>=13.7.0          # Console output formatting
+click>=8.1.0          # CLI interface
+pytest>=7.4.0         # Testing
+pytest-asyncio>=0.21.0  # Async testing

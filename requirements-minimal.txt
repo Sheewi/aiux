@@ -1,0 +1,24 @@
+# Minimal Requirements for Core Functionality
+# Use this for testing basic installation
+
+# Core Dependencies (pinned versions)
+click==8.1.7
+redis==5.0.1
+APScheduler==3.10.1
+paramiko==3.4.0
+fabric==3.1.0
+
+# Essential packages
+requests>=2.31.0
+fastapi>=0.104.0
+pydantic>=2.5.0
+pandas>=2.1.0
+numpy>=1.24.0
+
+# Basic tools
+python-dotenv>=1.0.0
+rich>=13.7.0
+
+# Optional (comment out if causing issues)
+# cryptography>=41.0.0
+# bcrypt>=4.1.0

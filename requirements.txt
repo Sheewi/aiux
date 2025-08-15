@@ -1,0 +1,98 @@
+# Universal AI System Requirements - Complete Dependencies List
+# Core AI and Cloud Dependencies
+google-cloud-aiplatform>=1.38.0
+google-cloud-run>=0.10.0
+google-cloud-storage>=2.10.0
+google-cloud-monitoring>=2.16.0
+vertexai>=1.38.0
+
+# Web and API Integration
+aiohttp>=3.9.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+stripe>=7.0.0
+web3>=6.12.0
+PyJWT>=2.8.0
+requests>=2.31.0
+httpx>=0.25.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Data Processing and Analysis
+pandas>=2.1.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+pillow>=10.0.0
+
+# Hardware Middleware - COMPLETE LIST
+pyudev>=0.24.0          # Linux device discovery (USB, system devices)
+psutil>=5.9.0           # System and process utilities
+pyserial>=3.5           # Serial port communication
+sounddevice>=0.4.6      # Audio device interface
+opencv-python>=4.8.0    # Computer vision and camera support
+
+# Web Automation and Testing
+playwright>=1.40.0      # Browser automation
+scrapy>=2.11.0         # Web scraping framework
+selenium>=4.15.0       # Browser automation (alternative)
+
+# AI and Machine Learning
+onnxruntime>=1.16.0    # ONNX model runtime
+transformers>=4.35.0   # Hugging Face transformers
+torch>=2.1.0           # PyTorch (optional, for advanced AI)
+tensorflow>=2.14.0     # TensorFlow (optional, for advanced AI)
+
+# Container and Orchestration
+kubernetes>=28.1.0     # Kubernetes API client
+docker>=6.1.0          # Docker Python SDK
+
+# GraphQL and API Tools
+gql[aiohttp]>=3.4.0    # GraphQL client with async support
+
+# Development Tools
+pytest>=7.4.0          # Testing framework
+pytest-asyncio>=0.21.0 # Async testing support
+black>=23.9.0          # Code formatting
+mypy>=1.6.0            # Type checking
+pre-commit>=3.5.0      # Git hooks
+python-dotenv>=1.0.0   # Environment variables
+pydantic>=2.5.0        # Data validation
+rich>=13.7.0           # Console output formatting
+click==8.1.7           # CLI interface - pinned version
+
+# Database and Caching (Optional)
+redis==5.0.1           # In-memory data store - pinned version
+# Remove this line - sqlite3 is built-in
+sqlalchemy>=2.0.0      # Database ORM (optional)
+
+# Message Queue and Background Tasks
+celery>=5.3.0          # Distributed task queue
+kombu>=5.3.0           # Message passing library
+
+# Security and Authentication
+cryptography>=41.0.0   # Cryptographic utilities
+bcrypt>=4.1.0          # Password hashing
+passlib>=1.7.4         # Password utilities
+
+# Hardware-Specific (Linux/Unix systems)
+# Note: These may not be available on all platforms
+#evdev>=1.6.0          # Input device access (Linux only)
+#RPi.GPIO              # Raspberry Pi GPIO (RPi only)
+#adafruit-circuitpython-motor  # Motor control (specific hardware)
+
+# Optional Advanced Features
+watchdog>=3.0.0        # File system monitoring
+schedule>=1.2.0        # Job scheduling
+APScheduler==3.10.1    # Advanced scheduling - pinned version
+paramiko==3.4.0        # SSH client - pinned version
+fabric==3.1.0          # Remote execution - pinned version
+
+# Network and Protocol Support
+# Note: socket is built-in Python - removed
+# Note: bluetooth support is system-specific, not available via pip
+# can                    # CAN bus support (automotive/industrial) - removed for now
+
+# Configuration Management
+yaml>=6.0.1            # YAML parsing
+toml>=0.10.2           # TOML parsing
+configparser           # INI file parsing (built-in Python)
