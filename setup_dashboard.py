@@ -15,16 +15,17 @@ sys.path.append('/media/r/Workspace/tools/design')
 sys.path.append('/media/r/Workspace/tools')
 
 try:
-    # Try different import approaches
-    try:
-        from figma_integration import figma_tool
-    except ImportError:
+    # Try different import approaches - try direct import first since we added the design path
         try:
+            # Try as a direct import
+            from figma_tool import figma_tool
+        except ImportError:
+            try:
+                # Try with tools as the root package
+                from tools.design.figma_integration import figma_tool
+        except ImportError:
             # Try with design as the package
             from design.figma_integration import figma_tool
-        except ImportError:
-            # Try with tools.design as the package
-            from tools.design.figma_integration import figma_tool
 except ImportError:
     # Create mock implementation if module isn't found
     print("Warning: figma_integration module not found, using mock implementation")
@@ -172,12 +173,12 @@ async def setup_dashboard():
     else:
         print("❌ Design handoff generation failed")
     
-    # Create React app structure
-    print("\\n5. Setting up React application...")
-    await setup_react_structure()
+    # Create Flutter app structure
+    print("\n5. Setting up Flutter application...")
+    await setup_flutter_structure()
     
     # Generate final summary
-    print("\\n" + "=" * 60)
+    print("\n" + "=" * 60)
     print("🎉 Dashboard Setup Complete!")
     print("=" * 60)
     
@@ -187,146 +188,39 @@ async def setup_dashboard():
     print(f"Design Tokens: {status['design_tokens_count']}")
     print(f"Projects: {status['projects_count']}")
     
-    print("\\n📁 Generated Files:")
+    print("\n📁 Generated Files:")
     print("   /media/r/Workspace/design_systems/")
-    print("   /media/r/Workspace/ui/components/")
+    print("   /media/r/Workspace/flutter_app/lib/")
     print("   /media/r/Workspace/design_handoff/")
-    print("   /media/r/Workspace/customer_dashboard/")
+    print("   /media/r/Workspace/flutter_app/")
     
-    print("\\n🚀 Next Steps:")
+    print("\n🚀 Next Steps:")
     print("   1. Add your Figma API token for real integration")
-    print("   2. Run 'npm start' in customer_dashboard directory")
-    print("   3. Customize components based on your requirements")
+    print("   2. Run './setup_flutter_server.sh' to install dependencies")
+    print("   3. Run 'flutter run' in flutter_app directory")
+    print("   4. Customize Flutter widgets based on your requirements")
     
     return True
 
-async def setup_react_structure():
-    """Setup React application structure"""
-    base_path = "/media/r/Workspace/customer_dashboard"
-    
-    # Create necessary directories
+async def setup_flutter_structure():
+    """Setup Flutter application structure"""
+    base_path = "/media/r/Workspace/flutter_app/lib"
+    # Create necessary directories for Flutter app
     directories = [
-        "src/components",
-        "src/hooks",
-        "src/utils",
-        "src/styles",
-        "src/types",
-        "public"
+        "components",
+        "screens",
+        "models",
+        "utils",
+        "widgets"
     ]
-    
     for directory in directories:
         os.makedirs(os.path.join(base_path, directory), exist_ok=True)
-    
-    # Create types file
-    types_content = '''export interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  avatar?: string;
-  status: 'active' | 'inactive' | 'pending';
-  lastActivity: string;
-  value: number;
-  location?: string;
-}
-
-export interface StatsData {
-  title: string;
-  value: string | number;
-  change?: string;
-  changeType?: 'positive' | 'negative' | 'neutral';
-  color?: 'primary' | 'success' | 'warning' | 'error';
-  icon?: React.ReactNode;
-}
-
-export interface TableColumn {
-  key: string;
-  title: string;
-  width?: string;
-  sortable?: boolean;
-  render?: (value: any, record: any) => React.ReactNode;
-}'''
-    
-    with open(os.path.join(base_path, 'src/types/index.ts'), 'w') as f:
-        f.write(types_content)
-    
-    # Create utils file
-    utils_content = '''export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  }).format(amount);
-};
-
-export const formatDate = (date: string | Date): string => {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  }).format(new Date(date));
-};
-
-export const getStatusColor = (status: string): string => {
-  const colors = {
-    active: 'var(--color-success)',
-    inactive: 'var(--color-neutral)',
-    pending: 'var(--color-warning)',
-    error: 'var(--color-error)'
-  };
-  return colors[status as keyof typeof colors] || colors.neutral;
-};'''
-    
-    with open(os.path.join(base_path, 'src/utils/index.ts'), 'w') as f:
-        f.write(utils_content)
-    
-    # Create hooks file
-    hooks_content = '''import { useState, useMemo } from 'react';
-
-export const useSearch = <T>(data: T[], searchFields: (keyof T)[]) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  
-  const filteredData = useMemo(() => {
-    if (!searchQuery) return data;
-    
-    return data.filter(item =>
-      searchFields.some(field =>
-        String(item[field]).toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    );
-  }, [data, searchQuery, searchFields]);
-  
-  return { searchQuery, setSearchQuery, filteredData };
-};
-
-export const useSort = <T>(data: T[]) => {
-  const [sortConfig, setSortConfig] = useState<{
-    key: keyof T;
-    direction: 'asc' | 'desc';
-  } | null>(null);
-  
-  const sortedData = useMemo(() => {
-    if (!sortConfig) return data;
-    
-    return [...data].sort((a, b) => {
-      const aValue = a[sortConfig.key];
-      const bValue = b[sortConfig.key];
-      
-      if (aValue < bValue) {
-        return sortConfig.direction === 'asc' ? -1 : 1;
-      }
-      if (aValue > bValue) {
-        return sortConfig.direction === 'asc' ? 1 : -1;
-      }
-      return 0;
-    });
-  }, [data, sortConfig]);
-  
-  return { sortedData, sortConfig, setSortConfig };
-};'''
-    
-    with open(os.path.join(base_path, 'src/hooks/index.ts'), 'w') as f:
-        f.write(hooks_content)
-    
-    print("✅ React structure created")
+    # Create a sample main.dart if not exists
+    main_dart = os.path.join(base_path, "main.dart")
+    if not os.path.exists(main_dart):
+        with open(main_dart, "w") as f:
+            f.write('''import 'package:flutter/material.dart';\n\nvoid main() {\n  runApp(const MyApp());\n}\n\nclass MyApp extends StatelessWidget {\n  const MyApp({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return MaterialApp(\n      title: 'Customer Dashboard',\n      theme: ThemeData(\n        primarySwatch: Colors.blue,\n      ),\n      home: const DashboardScreen(),\n    );\n  }\n}\n\nclass DashboardScreen extends StatelessWidget {\n  const DashboardScreen({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      appBar: AppBar(title: const Text('Customer Dashboard')),\n      body: const Center(child: Text('Welcome to the Customer Dashboard!')),\n    );\n  }\n}\n''')
+    print("✅ Flutter structure created")
 
 if __name__ == "__main__":
     asyncio.run(setup_dashboard())
