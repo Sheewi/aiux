@@ -39,7 +39,17 @@ try:
     from google.cloud import run_v2
     from google.cloud import monitoring_v3
     from google.cloud import secretmanager
-    from vertexai.preview.language_models import TextGenerationModel, CodeGenerationModel
+    try:
+        from vertexai.language_models import TextGenerationModel, CodeGenerationModel
+    except ImportError:
+        # Define placeholder classes for vertexai if not available
+        logging.warning("vertexai package not found. To use Vertex AI, install with: pip install google-cloud-aiplatform[vertexai]")
+        class TextGenerationModel:
+            @classmethod
+            def from_pretrained(cls, model_name):
+                return None
+        class CodeGenerationModel:
+            pass
     CLOUD_AVAILABLE = True
 except ImportError:
     CLOUD_AVAILABLE = False

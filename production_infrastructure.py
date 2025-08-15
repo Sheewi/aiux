@@ -39,8 +39,54 @@ try:
     from google.cloud import build_v1
     from google.cloud import iam_v1
     from google.oauth2 import service_account
-    from vertexai.preview.language_models import TextGenerationModel, CodeGenerationModel
-    from vertexai.preview.generative_models import GenerativeModel
+    try:
+        import vertexai
+    except ImportError:
+        logging.warning("vertexai module not found. Install with: pip install google-cloud-aiplatform>=1.28.0 --upgrade")
+        logging.warning("If you already have google-cloud-aiplatform installed, try: pip install --upgrade google-cloud-vertexai")
+        vertexai = None
+    # Try multiple import paths to accommodate different Vertex AI SDK versions
+    TextGenerationModel = CodeGenerationModel = None
+    
+    # Try various import paths from newest to oldest
+    for import_path in [
+        "vertexai.language_models",
+        "vertexai.preview.language_models",
+        "vertexai.generative_models.language_models",
+        "vertexai.preview.generative_models.language_models"
+    ]:
+        try:
+            module = __import__(import_path, fromlist=["TextGenerationModel", "CodeGenerationModel"])
+            TextGenerationModel = getattr(module, "TextGenerationModel", None)
+            CodeGenerationModel = getattr(module, "CodeGenerationModel", None)
+            if TextGenerationModel and CodeGenerationModel:
+                break
+        except (ImportError, AttributeError):
+            continue
+    
+    if not TextGenerationModel or not CodeGenerationModel:
+        logging.warning("TextGenerationModel or CodeGenerationModel not available in current vertexai version")
+    
+    # Handle GenerativeModel import with fallback
+    GenerativeModel = None
+    # Try various import paths for GenerativeModel
+    for import_path in [
+        "vertexai.generative_models",
+        "vertexai.preview.generative_models",
+        "vertexai.language_models.generative_models",
+        "vertexai.preview.language_models.generative_models"
+    ]:
+        try:
+            module = __import__(import_path, fromlist=["GenerativeModel"])
+            GenerativeModel = getattr(module, "GenerativeModel", None)
+            if GenerativeModel:
+                break
+        except (ImportError, AttributeError):
+            continue
+    
+    if not GenerativeModel:
+        logging.warning("GenerativeModel not available in current vertexai version")
+    
     GCP_AVAILABLE = True
 except ImportError:
     GCP_AVAILABLE = False

@@ -24,12 +24,12 @@ from main_orchestrator import UniversalAISystem, SystemConfiguration, ExecutionM
 
 # Import microagents conversational AI components
 try:
-    from hardware_middleware.device_manager import DeviceManager
-    from hardware_middleware.discovery_service import DeviceDiscoveryService
-    from hardware_middleware.message_bus import MessageBus
-    from hardware_middleware.device_abstraction_layer import DeviceAbstractionLayer
-    from hardware_middleware.communication_bus import CommunicationBus
-    from hardware_middleware.telemetry_aggregator import TelemetryAggregator
+    from microagents_conversational_ai.hardware_middleware.device_manager import DeviceManager
+    from microagents_conversational_ai.hardware_middleware.discovery_service import DeviceDiscoveryService
+    from microagents_conversational_ai.hardware_middleware.message_bus import MessageBus
+    from microagents_conversational_ai.hardware_middleware.device_abstraction_layer import DeviceAbstractionLayer
+    from microagents_conversational_ai.hardware_middleware.communication_bus import CommunicationBus
+    from microagents_conversational_ai.hardware_middleware.telemetry_aggregator import TelemetryAggregator
     HARDWARE_MIDDLEWARE_AVAILABLE = True
 except ImportError as e:
     logging.warning(f"Hardware middleware not fully available: {e}")
